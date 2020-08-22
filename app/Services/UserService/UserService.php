@@ -9,7 +9,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Events\NewUserEvent;
 
-// @todo: unitTest
 class UserService implements UserServiceInterface
 {
 
