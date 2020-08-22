@@ -3,7 +3,7 @@
 namespace App\Services\UserService;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 interface UserServiceInterface
 {
@@ -29,6 +29,6 @@ interface UserServiceInterface
 	 * @param array $input
 	 * @return User
 	 */
-	public function newUser(array $input): User;
+	public function newUser(array $input);
 	
 }

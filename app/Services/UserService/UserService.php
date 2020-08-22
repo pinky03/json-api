@@ -4,7 +4,7 @@ namespace App\Services\UserService;
 
 use App\Models\User;
 use App\Models\Event;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Events\NewUserEvent;
@@ -76,7 +76,7 @@ class UserService implements UserServiceInterface
 	 * {@inheritDoc}
 	 * @see \App\Services\UserService\UserServiceInterface::newUser()
 	 */
-	public function newUser(array $input): User
+	public function newUser(array $input)
 	{
 		$input['api_token'] = base64_encode(Str::random(40));
 		$user = $this->users->create($input);

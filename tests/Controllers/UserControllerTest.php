@@ -1,34 +1,56 @@
 <?php 
 
-use App\Models\Event;
 use App\Models\User;
+use App\Services\UserService\UserServiceInterface;
 
 class UserControllerTest extends TestCase
 {
 	private $dummyUser = [
-		'name' => 'test',
-		'email' => 'test@test.com',
-		'password' => 'test',
+		'name' => 'dummy',
+		'email' => 'dummy@test.com',
+		'password' => 'dummy',
 		'event_id' => 1,
 	];
 	
-	public function setUp():void
+	public function setUp(): void
 	{
 		parent::setUp();
 		
 		$this->users = Mockery::mock(User::class);
 		$this->app->instance(User::class, $this->users);
 		
-		$this->events = Mockery::mock(Event::class);
-		$this->app->instance(Event::class, $this->events);
+		$this->userService = Mockery::mock(UserServiceInterface::class);
+		$this->app->instance(UserServiceInterface::class, $this->userService);
+	}
+	
+	public function tearDown(): void
+	{
+		parent::tearDown();
+		Mockery::close();
+	}
+	
+	public function testLogin()
+	{
+		$this->userService
+			->shouldReceive('logIn')
+			->andReturn('token');
+		
+		$this->post('/login', [
+			'email' => $this->dummyUser['email'], 
+			'password' => $this->dummyUser['password'],
+		]);
+		
+		$this->seeJsonEquals([
+			'status' => 'ok',
+			'api_token' => 'token',
+		]);
 	}
 	
 	public function testIndex()
 	{
-		// get all members
-		$this->users
-			->shouldReceive('all')
-			->andReturn([]);
+		$this->userService
+			->shouldReceive('getUserListByEvent')
+			->andReturn(collect([]));
 		
 		$this->get('/users');
 		
@@ -36,15 +58,7 @@ class UserControllerTest extends TestCase
 			'status' => 'ok',
 			'data' => [],
 		]);
-		
-		// filter members by event
-		$this->events
-			->shouldReceive('find')
-			->andReturn($this->events);
-		$this->events
-			->shouldReceive('getAttribute')
-			->andReturn([]);
-		
+
 		$this->get('/users?event=1');
 		
 		$this->seeJsonEquals([
@@ -69,8 +83,8 @@ class UserControllerTest extends TestCase
 	
 	public function testStore()
 	{
-		$this->users
-			->shouldReceive('create')
+		$this->userService
+			->shouldReceive('newUser')
 			->andReturn('user');
 		
 		$this->put('/users', $this->dummyUser);
