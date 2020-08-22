@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Services\UserService\UserServiceInterface;
 
-// @todo: add docblocks
-// @todo: unit test
 class UserController extends Controller
 {
 
