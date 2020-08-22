@@ -7,16 +7,16 @@ use App\Jobs\SendEmail;
 
 class SendEmailListener
 {
+
     /**
      * Handle the event.
      *
-     * @param  \App\Events\ExampleEvent  $event
+     * @param \App\Events\ExampleEvent $event
      * @return void
      */
     public function handle(NewUserEvent $event)
     {
-    	dispatch(
-    		new SendEmail($event->user->email)
-    	);
+        $email = $event->user->email;
+        dispatch(new SendEmail($email));
     }
 }

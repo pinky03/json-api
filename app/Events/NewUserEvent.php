@@ -6,6 +6,7 @@ use App\Models\User;
 
 class NewUserEvent extends Event
 {
+
     /**
      * Create a new event instance.
      *
@@ -13,6 +14,6 @@ class NewUserEvent extends Event
      */
     public function __construct(User $user)
     {
-    	$this->user = $user;
+        $this->user = $user;
     }
 }

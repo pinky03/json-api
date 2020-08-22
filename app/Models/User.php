@@ -18,7 +18,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'event_id', 'api_token',
+        'name',
+        'email',
+        'password',
+        'event_id',
+        'api_token'
     ];
 
     /**
@@ -27,11 +31,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-    	'password', 'api_token',
+        'password',
+        'api_token'
     ];
 
     public function event()
     {
-    	return $this->belongsTo(Event::class);
+        return $this->belongsTo(Event::class);
     }
 }

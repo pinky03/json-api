@@ -6,12 +6,13 @@ use Illuminate\Support\Facades\Log;
 
 class SendEmail extends Job
 {
-	/**
-	 * 
-	 * @var string
-	 */
-	private $email;
-	
+
+    /**
+     *
+     * @var string
+     */
+    private $email;
+
     /**
      * Create a new job instance.
      *
@@ -19,7 +20,7 @@ class SendEmail extends Job
      */
     public function __construct(string $email)
     {
-    	$this->email = $email;
+        $this->email = $email;
     }
 
     /**
@@ -29,6 +30,8 @@ class SendEmail extends Job
      */
     public function handle()
     {
-    	Log::info('New user.', ['email' => $this->email]);
+        Log::info('New user.', [
+            'email' => $this->email
+        ]);
     }
 }

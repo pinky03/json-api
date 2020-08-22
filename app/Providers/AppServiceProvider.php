@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Register any application services.
      *
@@ -13,11 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-    	$this->app->bind(
-    		\App\Services\UserService\UserServiceInterface::class, 
-    		\App\Services\UserService\UserService::class
-    	);
-    	
-    	//
+        $this->app->bind(\App\Services\UserService\UserServiceInterface::class,
+            \App\Services\UserService\UserService::class);
+
+        //
     }
 }
